@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glasgow Smile Gallery | Dentist in Glasgow West End</title>
+    <meta name="description" content="Quality dental care and facial aesthetics in Glasgow's West End. Implants, orthodontics, whitening and cosmetic treatments. Book online today.">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: var(--brand-light);
+        }
+
+        .hero-video {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+            background: var(--brand-light);
+        }
+
+        .hero-video video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+        }
+
+        .hero-video video.active {
+            opacity: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background:
+                linear-gradient(135deg,
+                    rgba(0, 0, 0, 0.30) 0%,
+                    rgba(0, 0, 0, 0.15) 40%,
+                    rgba(0, 0, 0, 0.10) 70%,
+                    rgba(0, 0, 0, 0.20) 100%
+                );
+        }
+
+        .hero-curve {
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            z-index: 3;
+            line-height: 0;
+        }
+
+        .hero-curve svg {
+            display: block;
+            width: 100%;
+            height: 120px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 140px 40px 120px;
+            width: 100%;
+        }
+
+        .hero h1 {
+            font-family: var(--font-body);
+            font-size: clamp(36px, 5vw, 66px);
+            font-weight: 400;
+            line-height: 1.06;
+            color: rgba(255, 255, 255, 0.75);
+            max-width: 600px;
+            margin-bottom: 40px;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .hero h1 strong {
+            color: #FFFFFF;
+            font-weight: 700;
+        }
+
+        .btn-hero {
+            background: var(--brand-dark);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 0 30px;
+            height: 60px;
+            font-size: 18px;
+            font-weight: 400;
+        }
+
+        .btn-hero:hover {
+            background: #380F6B;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .curve-circles {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            z-index: 4;
+            margin-top: -50px;
+            padding: 0 40px;
+        }
+
+        .curve-circle-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: transform 0.25s;
+        }
+
+        .curve-circle-link:hover { transform: translateY(-4px); }
+
+        .curve-circle {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 700;
+            text-align: center;
+            line-height: 1.2;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .curve-circle.purple { background: #8224e3; }
+        .curve-circle.dark { background: #5E1AAA; }
+
+        .curve-circle svg {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 4px;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
+            z-index: 1;
+            background: linear-gradient(to top, rgba(255, 255, 255, 0.15) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .treatment-carousel {
+            background: var(--brand-white);
+            padding: 60px 40px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding-bottom: 10px;
+        }
+
+        .carousel-track::-webkit-scrollbar { display: none; }
+
+        .carousel-card {
+            flex: 0 0 220px;
+            scroll-snap-align: start;
+            background: var(--brand-light);
+            border-radius: 10px;
+            padding: 28px 24px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.25s;
+            cursor: pointer;
+        }
+
+        .carousel-card:hover {
+            background: var(--brand-primary);
+            color: white;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(130, 36, 227, 0.2);
+        }
+
+        .carousel-card:hover .carousel-card-title,
+        .carousel-card:hover .carousel-card-desc,
+        .carousel-card:hover .carousel-card-icon {
+            color: white;
+        }
+
+        .carousel-card-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            color: var(--brand-primary);
+            transition: color 0.25s;
+        }
+
+        .carousel-card-icon svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .carousel-card-title {
+            font-family: var(--font-body);
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--brand-dark);
+            margin-bottom: 6px;
+            transition: color 0.25s;
+        }
+
+        .carousel-card-desc {
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--brand-muted);
+            line-height: 1.5;
+            transition: color 0.25s;
+        }
+
+        .tagline {
+            text-align: center;
+            padding: 40px 40px 60px;
+            position: relative;
+            z-index: 1;
+            background: var(--brand-white);
+        }
+
+        .tagline p {
+            font-family: var(--font-body);
+            font-size: clamp(18px, 2.5vw, 24px);
+            font-weight: 400;
+            color: var(--brand-text);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content { padding: 120px 24px 100px; }
+            .hero h1 { font-size: 36px; }
+            .hero-curve svg { height: 60px; }
+            .curve-circles { margin-top: -35px; gap: 12px; }
+            .curve-circle { width: 75px; height: 75px; font-size: 10px; }
+            .curve-circle svg { width: 20px; height: 20px; }
+            .treatment-carousel { padding: 50px 16px 30px; }
+            .carousel-card { flex: 0 0 180px; padding: 20px 16px; }
+            .tagline { padding: 30px 24px 100px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ── FLOATING NAV ── -->
+    <header class="nav-wrapper">
+        <nav class="nav">
+            <a href="/" class="nav-logo">
+                <img src="logo.png" alt="Glasgow Smile Gallery" class="nav-logo-img">
+            </a>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/" class="active">Home</a></li>
+                <li><a href="/about.html">About</a></li>
+                <li><a href="/treatments.html">Treatments</a></li>
+                <li><a href="/nhs-info.html">NHS Info</a></li>
+                <li><a href="/prices.html">Prices</a></li>
+            </ul>
+
+            <div class="nav-ctas">
+                <a href="https://cal.com/sean-puente-kfnbtg/free-invisalign-evaluation" class="btn btn-primary" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" /></svg>
+                    Book Now
+                </a>
+                <a href="https://maps.google.com/?q=23+Ashton+Road+Glasgow+G12+8SP" class="btn btn-secondary" target="_blank" rel="noopener">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 0 1 15 0Z" /></svg>
+                    Find Us
+                </a>
+            </div>
+
+            <button class="nav-mobile-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
+            </button>
+        </nav>
+    </header>
+
+    <!-- ── HERO ── -->
+    <section class="hero">
+        <div class="hero-video">
+            <video class="active" muted playsinline>
+                <source src="https://videos.pexels.com/video-files/8746866/8746866-hd_1920_1080_25fps.mp4" type="video/mp4">
+            </video>
+            <video muted playsinline>
+                <source src="https://videos.pexels.com/video-files/8724239/8724239-hd_2048_1080_25fps.mp4" type="video/mp4">
+            </video>
+            <video muted playsinline>
+                <source src="https://videos.pexels.com/video-files/10159566/10159566-hd_2048_1080_25fps.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Your Smile,<br>Our <strong>Passion</strong><br>in Glasgow's <strong>West End</strong></h1>
+            <a href="https://cal.com/sean-puente-kfnbtg/free-invisalign-evaluation" class="btn btn-hero" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width:20px;height:20px"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" /></svg>
+                Book Now
+            </a>
+        </div>
+        <div class="hero-curve">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,120 L0,60 Q360,0 720,60 Q1080,120 1440,60 L1440,120 Z" fill="#FFFFFF"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Circle buttons on the curve -->
+    <div class="curve-circles">
+        <a href="https://maps.google.com/?q=23+Ashton+Road+Glasgow+G12+8SP" class="curve-circle-link" target="_blank" rel="noopener">
+            <div class="curve-circle purple">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 0 1 15 0Z" /></svg>
+                How to<br>Find Us
+            </div>
+        </a>
+        <a href="/nhs-info.html" class="curve-circle-link">
+            <div class="curve-circle dark">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" /></svg>
+                NHS<br>Info
+            </div>
+        </a>
+    </div>
+
+    <!-- ── TAGLINE ── -->
+    <section class="tagline">
+        <p>Quality dental care and facial aesthetics in the heart of Glasgow's West End since 1991.</p>
+    </section>
+
+    <!-- ── TREATMENT CAROUSEL ── -->
+    <div class="treatment-carousel">
+        <div class="carousel-track">
+            <a href="/implants.html" class="carousel-card">
+                <div class="carousel-card-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085" /></svg>
+                </div>
+                <div class="carousel-card-title">Dental Implants</div>
+                <div class="carousel-card-desc">Specialist-led permanent tooth replacement. Free consultation.</div>
+            </a>
+            <a href="/treatments.html" class="carousel-card">
+                <div class="carousel-card-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" /></svg>
+                </div>
+                <div class="carousel-card-title">Cosmetic Dentistry</div>
+                <div class="carousel-card-desc">Porcelain veneers, bonding and smile makeovers.</div>
+            </a>
+            <a href="/treatments.html" class="carousel-card">
+                <div class="carousel-card-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" /></svg>
+                </div>
+                <div class="carousel-card-title">Orthodontics</div>
+                <div class="carousel-card-desc">Inman Aligner and 6 Month Smiles for straighter teeth.</div>
+            </a>
+            <a href="/treatments.html" class="carousel-card">
+                <div class="carousel-card-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" /></svg>
+                </div>
+                <div class="carousel-card-title">Facial Aesthetics</div>
+                <div class="carousel-card-desc">Anti-wrinkle injections, dermal fillers and lip enhancement.</div>
+            </a>
+            <a href="/treatments.html" class="carousel-card">
+                <div class="carousel-card-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z" /></svg>
+                </div>
+                <div class="carousel-card-title">Teeth Whitening</div>
+                <div class="carousel-card-desc">Professional whitening for a brighter, confident smile.</div>
+            </a>
+            <a href="/treatments.html" class="carousel-card">
+                <div class="carousel-card-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                </div>
+                <div class="carousel-card-title">General & NHS</div>
+                <div class="carousel-card-desc">Check-ups, fillings, crowns and preventive dental care.</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- ── CTA BANNER ── -->
+    <div class="cta-banner">
+        <h2>Ready to begin?</h2>
+        <p>Book your appointment or get in touch with our friendly team.</p>
+        <a href="https://cal.com/sean-puente-kfnbtg/free-invisalign-evaluation" class="btn btn-primary btn-lg" target="_blank">Book Now</a>
+    </div>
+
+    <!-- ── FOOTER ── -->
+    <footer class="footer" id="find-us">
+        <div class="footer-content">
+            <div class="footer-logo">Glasgow Smile Gallery</div>
+            <div class="footer-info">
+                <a href="https://maps.google.com/?q=23+Ashton+Road+Glasgow+G12+8SP" target="_blank" rel="noopener">23 Ashton Road, Glasgow, G12 8SP</a><br>
+                <a href="tel:01413345166">0141 334 5166</a><br>
+                <a href="mailto:info@glasgowsmilegallery.co.uk">info@glasgowsmilegallery.co.uk</a>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Glasgow Smile Gallery. GDC Registered.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ── WHATSAPP FLOAT ── -->
+    <a href="https://wa.me/441413345166" class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </a>
+
+    <!-- ── MOBILE STICKY BOOK NOW ── -->
+    <div class="mobile-sticky">
+        <a href="https://cal.com/sean-puente-kfnbtg/free-invisalign-evaluation" class="btn btn-primary" target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" /></svg>
+            Book Now
+        </a>
+    </div>
+
+    <!-- ── VIDEO ROTATION CONTROLLER ── -->
+    <script>
+    (function() {
+        var videos = document.querySelectorAll('.hero-video video');
+        if (!videos.length) return;
+
+        var clips = [
+            { start: 3, end: 7, speed: 0.7 },
+            { start: 1, end: 4, speed: 1.0 },
+            { start: 2, end: 6, speed: 0.8 }
+        ];
+
+        var current = 0;
+
+        function playClip(index) {
+            var video = videos[index];
+            var clip = clips[index];
+
+            video.playbackRate = clip.speed;
+            video.currentTime = clip.start;
+            video.classList.add('active');
+            video.play().catch(function(){});
+
+            var checkTime = setInterval(function() {
+                if (video.currentTime >= clip.end) {
+                    clearInterval(checkTime);
+                    video.classList.remove('active');
+
+                    current = (current + 1) % videos.length;
+                    setTimeout(function() {
+                        playClip(current);
+                    }, 300);
+                }
+            }, 100);
+        }
+
+        videos[0].addEventListener('canplay', function() {
+            playClip(0);
+        }, { once: true });
+
+        videos.forEach(function(v) {
+            v.load();
+        });
+    })();
+    </script>
+
+</body>
+</html>
