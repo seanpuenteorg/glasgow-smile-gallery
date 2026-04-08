@@ -150,14 +150,6 @@ body {
     width: auto;
 }
 
-.nav-logo-text {
-    font-family: var(--font-body);
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--brand-dark);
-    text-decoration: none;
-}
-
 .nav-links {
     display: flex;
     align-items: center;
@@ -314,6 +306,15 @@ body {
     margin-bottom: 20px;
 }
 
+.section a {
+    color: var(--brand-primary);
+    text-decoration: none;
+}
+
+.section a:hover {
+    text-decoration: underline;
+}
+
 .section p {
     font-family: var(--font-body);
     font-size: 18px;
@@ -341,7 +342,7 @@ body {
     display: block;
 }
 
-.card:hover {
+a.card:hover {
     border-color: var(--brand-accent);
     box-shadow: 0 8px 30px rgba(130, 36, 227, 0.1);
     transform: translateY(-2px);
