@@ -146,7 +146,7 @@
         }
 
         .btn-hero {
-            background: var(--brand-primary);
+            background: var(--brand-dark);
             color: white;
             border: none;
             border-radius: 10px;
@@ -154,14 +154,10 @@
             height: 60px;
             font-size: 18px;
             font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
         }
 
         .btn-hero:hover {
-            background: var(--brand-primary-hover);
+            background: #072C44;
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
@@ -204,8 +200,8 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .curve-circle.blue { background: var(--brand-primary); }
-        .curve-circle.dark { background: var(--brand-dark); }
+        .curve-circle.blue { background: #17BDE9; }
+        .curve-circle.dark { background: #0B3D5F; }
 
         .curve-circle svg {
             width: 24px;
@@ -223,6 +219,82 @@
             z-index: 1;
             background: linear-gradient(to top, rgba(255, 255, 255, 0.15) 0%, transparent 100%);
             pointer-events: none;
+        }
+
+        .treatment-carousel {
+            background: var(--brand-white);
+            padding: 60px 40px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding-bottom: 10px;
+        }
+
+        .carousel-track::-webkit-scrollbar { display: none; }
+
+        .carousel-card {
+            flex: 0 0 220px;
+            scroll-snap-align: start;
+            background: var(--brand-light);
+            border-radius: 10px;
+            padding: 28px 24px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.25s;
+            cursor: pointer;
+        }
+
+        .carousel-card:hover {
+            background: var(--brand-primary);
+            color: white;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(23, 189, 233, 0.2);
+        }
+
+        .carousel-card:hover .carousel-card-title,
+        .carousel-card:hover .carousel-card-desc,
+        .carousel-card:hover .carousel-card-icon {
+            color: white;
+        }
+
+        .carousel-card-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            color: var(--brand-primary);
+            transition: color 0.25s;
+        }
+
+        .carousel-card-icon svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .carousel-card-title {
+            font-family: var(--font-body);
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--brand-dark);
+            margin-bottom: 6px;
+            transition: color 0.25s;
+        }
+
+        .carousel-card-desc {
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--brand-muted);
+            line-height: 1.5;
+            transition: color 0.25s;
         }
 
         .tagline {
@@ -272,19 +344,7 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="/" class="active">Home</a></li>
                 <li><a href="/about.html">About</a></li>
-                <li class="nav-dropdown">
-                    <a href="/treatments.html">Treatments
-                        <svg class="nav-dropdown-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
-                    </a>
-                    <div class="nav-dropdown-menu">
-                        <a href="/implants.html">Dental Implants</a>
-                        <a href="/treatments.html">Cosmetic Dentistry</a>
-                        <a href="/treatments.html">Orthodontics</a>
-                        <a href="/treatments.html">Facial Aesthetics</a>
-                        <a href="/treatments.html">Teeth Whitening</a>
-                        <a href="/treatments.html">General & NHS</a>
-                    </div>
-                </li>
+                <li><a href="/treatments.html">Treatments</a></li>
                 <li><a href="/nhs-info.html">NHS Info</a></li>
                 <li><a href="/prices.html">Prices</a></li>
             </ul>
@@ -356,56 +416,53 @@
         <p>Quality dental care and facial aesthetics in the heart of Glasgow's West End since 1991.</p>
     </section>
 
-    <!-- ── TREATMENT FINDER ── -->
-    <section class="treatment-finder">
-        <div class="treatment-finder-header">
-            <h2>Find Your <strong>Treatment</strong></h2>
-            <div class="treatment-search">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width:16px;height:16px;color:var(--brand-muted);flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
-                <input type="text" placeholder="Search all treatments" id="treatmentSearch">
-            </div>
+    <!-- ── TREATMENT CAROUSEL ── -->
+    <div class="treatment-carousel">
+        <div class="carousel-track">
+            <a href="/implants.html" class="carousel-card">
+                <div class="carousel-card-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085" /></svg>
+                </div>
+                <div class="carousel-card-title">Dental Implants</div>
+                <div class="carousel-card-desc">Specialist-led permanent tooth replacement. Free consultation.</div>
+            </a>
+            <a href="/treatments.html" class="carousel-card">
+                <div class="carousel-card-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" /></svg>
+                </div>
+                <div class="carousel-card-title">Cosmetic Dentistry</div>
+                <div class="carousel-card-desc">Porcelain veneers, bonding and smile makeovers.</div>
+            </a>
+            <a href="/treatments.html" class="carousel-card">
+                <div class="carousel-card-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" /></svg>
+                </div>
+                <div class="carousel-card-title">Orthodontics</div>
+                <div class="carousel-card-desc">Inman Aligner and 6 Month Smiles for straighter teeth.</div>
+            </a>
+            <a href="/treatments.html" class="carousel-card">
+                <div class="carousel-card-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" /></svg>
+                </div>
+                <div class="carousel-card-title">Facial Aesthetics</div>
+                <div class="carousel-card-desc">Anti-wrinkle injections, dermal fillers and lip enhancement.</div>
+            </a>
+            <a href="/treatments.html" class="carousel-card">
+                <div class="carousel-card-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z" /></svg>
+                </div>
+                <div class="carousel-card-title">Teeth Whitening</div>
+                <div class="carousel-card-desc">Professional whitening for a brighter, confident smile.</div>
+            </a>
+            <a href="/treatments.html" class="carousel-card">
+                <div class="carousel-card-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                </div>
+                <div class="carousel-card-title">General & NHS</div>
+                <div class="carousel-card-desc">Check-ups, fillings, crowns and preventive dental care.</div>
+            </a>
         </div>
-        <div class="treatment-slider">
-            <button class="slider-arrow slider-prev" aria-label="Previous">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg>
-            </button>
-            <div class="slider-track" id="sliderTrack">
-                <a href="/implants.html" class="treatment-slide">
-                    <img src="https://images.pexels.com/photos/3845625/pexels-photo-3845625.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Dental Implants" class="slide-img" loading="lazy">
-                    <h3 class="slide-title">Dental Implants</h3>
-                    <p class="slide-desc">Specialist-led permanent tooth replacement. Free consultation.</p>
-                </a>
-                <a href="/treatments.html" class="treatment-slide">
-                    <img src="https://images.pexels.com/photos/3779709/pexels-photo-3779709.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cosmetic Dentistry" class="slide-img" loading="lazy">
-                    <h3 class="slide-title">Cosmetic Dentistry</h3>
-                    <p class="slide-desc">Porcelain veneers, bonding and smile makeovers.</p>
-                </a>
-                <a href="/treatments.html" class="treatment-slide">
-                    <img src="https://images.pexels.com/photos/3845810/pexels-photo-3845810.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Orthodontics" class="slide-img" loading="lazy">
-                    <h3 class="slide-title">Orthodontics</h3>
-                    <p class="slide-desc">Inman Aligner and 6 Month Smiles for straighter teeth.</p>
-                </a>
-                <a href="/treatments.html" class="treatment-slide">
-                    <img src="https://images.pexels.com/photos/3845653/pexels-photo-3845653.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Facial Aesthetics" class="slide-img" loading="lazy">
-                    <h3 class="slide-title">Facial Aesthetics</h3>
-                    <p class="slide-desc">Anti-wrinkle injections, dermal fillers and lip enhancement.</p>
-                </a>
-                <a href="/treatments.html" class="treatment-slide">
-                    <img src="https://images.pexels.com/photos/3845766/pexels-photo-3845766.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Teeth Whitening" class="slide-img" loading="lazy">
-                    <h3 class="slide-title">Teeth Whitening</h3>
-                    <p class="slide-desc">Professional whitening for a brighter, confident smile.</p>
-                </a>
-                <a href="/treatments.html" class="treatment-slide">
-                    <img src="https://images.pexels.com/photos/3845557/pexels-photo-3845557.jpeg?auto=compress&cs=tinysrgb&w=600" alt="General & NHS" class="slide-img" loading="lazy">
-                    <h3 class="slide-title">General & NHS</h3>
-                    <p class="slide-desc">Check-ups, fillings, crowns and preventive dental care.</p>
-                </a>
-            </div>
-            <button class="slider-arrow slider-next" aria-label="Next">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>
-            </button>
-        </div>
-    </section>
+    </div>
 
     <!-- ── CTA BANNER ── -->
     <div class="cta-banner">
@@ -487,53 +544,6 @@
         videos.forEach(function(v) {
             v.load();
         });
-    })();
-    </script>
-
-    <!-- ── TREATMENT SLIDER CONTROLLER ── -->
-    <script>
-    (function() {
-        var track = document.getElementById('sliderTrack');
-        if (!track) return;
-        var slides = track.querySelectorAll('.treatment-slide');
-        var prevBtn = document.querySelector('.slider-prev');
-        var nextBtn = document.querySelector('.slider-next');
-        var searchInput = document.getElementById('treatmentSearch');
-        var page = 0;
-
-        function getPerPage() {
-            if (window.innerWidth <= 480) return 1;
-            if (window.innerWidth <= 768) return 2;
-            return 4;
-        }
-
-        function update() {
-            var perPage = getPerPage();
-            var total = Math.ceil(slides.length / perPage);
-            slides.forEach(function(s, i) {
-                s.style.display = (i >= page * perPage && i < (page + 1) * perPage) ? '' : 'none';
-            });
-            if (prevBtn) prevBtn.style.opacity = page === 0 ? '0.3' : '1';
-            if (nextBtn) nextBtn.style.opacity = page >= total - 1 ? '0.3' : '1';
-        }
-
-        if (prevBtn) prevBtn.addEventListener('click', function() { if (page > 0) { page--; update(); } });
-        if (nextBtn) nextBtn.addEventListener('click', function() {
-            var total = Math.ceil(slides.length / getPerPage());
-            if (page < total - 1) { page++; update(); }
-        });
-
-        if (searchInput) searchInput.addEventListener('input', function() {
-            var q = this.value.toLowerCase();
-            slides.forEach(function(s) {
-                var title = s.querySelector('.slide-title').textContent.toLowerCase();
-                s.style.display = title.indexOf(q) !== -1 ? '' : 'none';
-            });
-            if (q === '') { page = 0; update(); }
-        });
-
-        window.addEventListener('resize', function() { page = 0; update(); });
-        update();
     })();
     </script>
 
