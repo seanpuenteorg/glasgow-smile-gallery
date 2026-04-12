@@ -188,16 +188,7 @@ function wireNav() {
     const navBtn = e.target.closest('[data-nav]');
     if (navBtn) {
       e.preventDefault();
-      // Production-mode redirect: if the user clicks "Book" in the slot-chosen modal
-      // and this deploy is a real clinic site (realBookingUrl set in injected config),
-      // open the clinic's actual booking system in a new tab instead of showing the
-      // fake patient details / confirmation screens. Kaiser's UI is the funnel,
-      // real bookings land in the clinic's existing system.
-      if (navBtn.dataset.nav === 'details' && CLINIC.realBookingUrl) {
-        window.open(CLINIC.realBookingUrl, '_blank', 'noopener,noreferrer');
-        closeModal('slot');
-        return;
-      }
+      // Patient details flow — no external redirect
       goScreen(navBtn.dataset.nav);
       return;
     }
