@@ -83,15 +83,19 @@
     --brand-primary: #17BDE9;
     --brand-accent: #17BDE9;
     --brand-dark: #0B3D5F;
+    --brand-darker: #0b0b0b;
     --brand-light: #E7F8FD;
     --brand-white: #FFFFFF;
     --brand-text: #2C2C2C;
-    --brand-muted: #5E7B8A;
-    --brand-border: #CFEBF5;
+    --brand-muted: #5a7688;
+    --brand-border: #d5d6d6;
+    --brand-link-alt: #7EB8D4;
+    --brand-primary-hover: #0FA8D0;
     --nav-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
     --radius-nav: 20px;
     --radius-btn: 10px;
     --font-display: 'Editorial New', Georgia, serif;
+    --font-heading: 'Neue Montreal', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-body: 'Neue Montreal', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-detail: 'Corporative Sans Rd', 'Neue Montreal', sans-serif;
 }
@@ -199,9 +203,9 @@ body {
 }
 
 .btn-primary:hover {
-    background: #0FA8D0;
+    background: var(--brand-primary-hover);
     transform: translateY(-1px);
-    box-shadow: 0 4px 15px rgba(23, 189, 233, 0.35);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
 /* Dark navy — weight/hierarchy/emphasis (Find Us, Our Locations) */
@@ -211,9 +215,9 @@ body {
 }
 
 .btn-secondary:hover {
-    background: #072C44;
+    background: var(--brand-darker);
     transform: translateY(-1px);
-    box-shadow: 0 4px 15px rgba(11, 61, 95, 0.35);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
 .btn-outline {
@@ -226,11 +230,10 @@ body {
     background: var(--brand-primary);
     color: white;
     transform: translateY(-1px);
-    box-shadow: 0 4px 15px rgba(23, 189, 233, 0.35);
 }
 
 .btn-dark {
-    background: var(--brand-dark);
+    background: var(--brand-primary);
     color: white;
     border-radius: var(--radius-btn);
     padding: 0 30px;
@@ -239,9 +242,9 @@ body {
 }
 
 .btn-dark:hover {
-    background: #072C44;
+    background: var(--brand-primary-hover);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(11, 61, 95, 0.3);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 .btn-lg {
@@ -874,6 +877,260 @@ a.card:hover {
     font-size: 12px;
 }
 
+/* ── TREATMENT FINDER (CubeDental-style) ── */
+.treatment-finder {
+    background: var(--brand-light);
+    padding: 60px 40px 50px;
+    position: relative;
+    z-index: 1;
+}
+
+.treatment-finder-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto 32px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.treatment-finder-header h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(24px, 3.5vw, 34px);
+    font-weight: 300;
+    color: var(--brand-dark);
+    margin: 0;
+}
+
+.treatment-finder-header h2 strong {
+    font-weight: 700;
+}
+
+.treatment-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    border: 1px solid var(--brand-border);
+    border-radius: 50px;
+    padding: 10px 20px;
+    min-width: 220px;
+}
+
+.treatment-search input {
+    border: none;
+    outline: none;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--brand-text);
+    background: transparent;
+    width: 100%;
+}
+
+.treatment-search input::placeholder {
+    color: var(--brand-muted);
+}
+
+.treatment-slider {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.slider-track {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.treatment-slide {
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
+    transition: transform 0.25s;
+}
+
+.treatment-slide:hover {
+    transform: translateY(-4px);
+}
+
+.slide-img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 16px;
+}
+
+.slide-title {
+    font-family: var(--font-body);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--brand-dark);
+    margin: 0 0 8px;
+}
+
+.slide-desc {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--brand-text);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.slider-arrow {
+    position: absolute;
+    top: 30%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: opacity 0.2s, transform 0.2s;
+    color: var(--brand-dark);
+}
+
+.slider-arrow:hover {
+    transform: translateY(-50%) scale(1.1);
+}
+
+.slider-arrow svg {
+    width: 20px;
+    height: 20px;
+}
+
+.slider-prev { left: -22px; }
+.slider-next { right: -22px; }
+
+/* ── NAV TREATMENTS DROPDOWN ── */
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-dropdown > a {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.nav-dropdown-arrow {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.2s;
+}
+
+.nav-dropdown:hover .nav-dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.nav-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% - 4px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding-top: 20px;
+    background: transparent;
+    min-width: 240px;
+    z-index: 200;
+}
+
+.nav-dropdown:hover .nav-dropdown-menu {
+    display: block;
+}
+
+.nav-dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid white;
+}
+
+.nav-dropdown-menu a {
+    display: block;
+    padding: 10px 24px;
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--brand-dark);
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+    background: white;
+}
+
+.nav-dropdown-menu a:first-child {
+    border-radius: 12px 12px 0 0;
+    padding-top: 16px;
+}
+
+.nav-dropdown-menu a:last-child {
+    border-radius: 0 0 12px 12px;
+    padding-bottom: 16px;
+}
+
+.nav-dropdown-menu a:hover {
+    background: var(--brand-light);
+    color: var(--brand-primary);
+}
+
+/* ── TREATMENTS PAGE HERO ── */
+.treatments-hero {
+    position: relative;
+    height: 340px;
+    overflow: hidden;
+    margin-top: 0;
+}
+
+.treatments-hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.treatments-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(11, 61, 95, 0.7) 0%, rgba(23, 189, 233, 0.3) 100%);
+}
+
+.treatments-hero-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 140px 24px 40px;
+}
+
+.treatments-hero-content h1 {
+    font-family: var(--font-body);
+    font-size: clamp(36px, 5vw, 54px);
+    font-weight: 700;
+    color: white;
+    margin-bottom: 12px;
+}
+
+.treatments-hero-content p {
+    font-family: var(--font-body);
+    font-size: 20px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+}
+
 /* ── WHATSAPP FLOAT ── */
 .whatsapp-float {
     position: fixed;
@@ -967,8 +1224,17 @@ a.card:hover {
 
     .mobile-sticky { display: block; }
     .whatsapp-float { bottom: 84px; }
+
+    .slider-track { grid-template-columns: repeat(2, 1fr); }
+    .slider-prev { left: -8px; }
+    .slider-next { right: -8px; }
+    .treatment-finder { padding: 40px 24px 30px; }
+    .nav-dropdown-menu { display: none !important; }
 }
 
 @media (max-width: 480px) {
     .team-grid { grid-template-columns: 1fr; }
+    .slider-track { grid-template-columns: 1fr; }
+    .treatment-finder-header { flex-direction: column; align-items: flex-start; }
+    .treatment-search { width: 100%; }
 }
